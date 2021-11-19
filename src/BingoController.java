@@ -1,6 +1,7 @@
 import javax.tools.Tool;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
 
@@ -38,33 +39,28 @@ public class BingoController {
    //implement code here
     private final List<BingoCard> cards = new ArrayList<>();
 
+    public BingoController() {
+        this.currentColumnSize = Defaults.DEFAULT_NUMBER_OF_COLUMNS;
+        this.currentRowSize = Defaults.DEFAULT_NUMBER_OF_ROWS;
+    }
+
     /* TODO
           implement getters and setters for currentRowSize / currentColumnSize
      */
     public int getCurrentRowSize() {
-        /* TODO
-              change the return from 0 to the appropriate return
-     */
-        return Defaults.DEFAULT_NUMBER_OF_ROWS;
+        return this.currentRowSize;
     }
 
     public void setCurrentRowSize(int currentRowSize) {
-       /* TODO
-             implement code here
-     */
+        this.currentRowSize = currentRowSize;
     }
 
     public int getCurrentColumnSize() {
-        /* TODO
-              change the return from 0 to the appropriate return
-     */
-        return Defaults.DEFAULT_NUMBER_OF_COLUMNS;
+        return this.currentColumnSize;
     }
 
     public void setCurrentColumnSize(int currentColumnSize) {
-       /* TODO
-             implement code here
-     */
+        this.currentColumnSize = currentColumnSize;
     }
 
     /* TODO
@@ -80,9 +76,9 @@ public class BingoController {
      */
     public void setSize() {
         setCurrentRowSize(parseInt(Toolkit.getInputForMessage(
-                "")));
+                "Enter the number of rows for the card")));
         setCurrentColumnSize(parseInt(Toolkit.getInputForMessage(
-                "")));
+                "Enter the number of columns for the card")));
         System.out.printf("The bingo card size is set to %d rows X %d columns%n",
                 getCurrentRowSize(),
                 getCurrentColumnSize());
@@ -178,8 +174,10 @@ public class BingoController {
      */
     public void setSeparator() {
         String sep = Toolkit.getInputForMessage("Enter the new separator");
+        Defaults.setNumberSeparator(sep);
+
         /* TODO
-              make use of setNumberSeparator() and getNumberSeparator()
+              make use of setNumberSeparator() and getNumberSeparator() // why get?
          */
     }
 
@@ -248,11 +246,17 @@ public class BingoController {
                 case OPTION_EXIT:
                     finished = true;
                     break;
+                case OPTION_SEPARATOR:
+                    setSeparator();
+                    break;
                 case OPTION_CREATE_CARD:
                     createCard();
                     break;
                 case OPTION_LIST_CARDS:
                     listCards();
+                    break;
+                case OPTION_SIZE:
+                    setSize();
                     break;
             }
         } while (!finished);
