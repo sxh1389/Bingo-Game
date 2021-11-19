@@ -35,27 +35,19 @@ public class BingoCard {
            implement the getters and setters for rows / columns as seen below
      */
   public int getNumberOfRows() {
-    /* TODO
-          change the return from 0 to the appropriate return
-     */
-    return 0;
+    return this.numberOfRows;
   }
 
   public void setNumberOfRows(int numberOfRows) {
-
+    this.numberOfRows = numberOfRows;
   }
 
   public int getNumberOfColumns() {
-    /* TODO
-          change the return from 0 to the appropriate return
-     */
-    return 0;
+    return this.numberOfColumns;
   }
 
   public void setNumberOfColumns(int numberOfColumns) {
-    /* TODO
-          implement code here
-     */
+    this.numberOfColumns = numberOfColumns;
   }
 
   public String getCardNumbers() {
@@ -65,6 +57,11 @@ public class BingoCard {
      */
 
     StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < getNumberOfRows(); i++) {
+      for (int j = 0; j < getNumberOfColumns(); j++) {
+        sb.append(String.format("%d ", numbers[i][j])); // come back to this -  don't add space at end
+      }
+    }
     /* TODO
           all the cards are stored as a grid ([][] numbers) of rows / columns, so for example, numbers 3 4 5 6 will be
           printed as follows:
@@ -74,10 +71,14 @@ public class BingoCard {
     /* TODO
           return the grid as a string
      */
-    return null;
+    return sb.toString();
   }
 
   public void setCardNumbers(String[] numbersAsStrings) {
+    // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    //              ^
+    // [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+
     /* TODO
           the array of strings [] numbersAsStrings is cast to an integer as [] numbersList, for you
           set the grid from this list
@@ -85,9 +86,13 @@ public class BingoCard {
     int[] numbersList =
         Arrays.stream(numbersAsStrings).mapToInt(Integer::parseInt).toArray();
 
-    /* TODO
-          the goal of this method is to get the numbers entered into the [][] numbers format
-     */
+    int count = 0;
+    for (int i = 0; i < numberOfRows; i++) {
+      for (int j = 0; j < numberOfColumns; j++) {
+        numbers[i][j] = numbersList[count];
+        count++;
+      }
+    }
   }
 
   public void markNumber(int number) {

@@ -130,12 +130,20 @@ public class BingoController {
          3  4 (check with expected output files)
     */
     public void listCards() {
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println(String.format("Card %d numbers:", i));
+            printCardAsGrid(cards.get(i).getCardNumbers());
+        }
         /* TODO
               insert code here to find all cards to be printed accordingly
          */
+
         /* TODO
               call printCardAsGrid() method here, Hint: use getCardNumbers() when getting cards
          */
+
+
+
         }
 
     /* TODO
@@ -145,8 +153,23 @@ public class BingoController {
           5  6
           it is a follow on method from listCards() and ensures that the grid structure is printed
      */
-    public void printCardAsGrid(String numbers) {
-        //insert code here to print numbers as a grid
+    public void printCardAsGrid(String numbersA) {
+        String[] arr = numbersA.split(" ");
+        StringBuilder sb = new StringBuilder();
+        int count = 1;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length() < 2) {
+                sb.append(" ");
+            }
+            sb.append(String.format("%s ", arr[i]));
+            if (count % getCurrentColumnSize() == 0) {
+                sb.append("\n");
+            }
+            count++;
+        }
+
+        System.out.println(sb);
     }
 
     /* TODO
@@ -224,9 +247,13 @@ public class BingoController {
             switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
                 case OPTION_EXIT:
                     finished = true;
+                    break;
                 case OPTION_CREATE_CARD:
                     createCard();
-                    finished = true;
+                    break;
+                case OPTION_LIST_CARDS:
+                    listCards();
+                    break;
             }
         } while (!finished);
     }
