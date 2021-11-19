@@ -16,8 +16,10 @@ public class Toolkit {
 
   public static String printArray(String[] array) {
     StringBuilder sb = new StringBuilder();
-    // loop through elements
-      //
+    for (String elem : array) {
+      sb.append(String.format("%s%s ", elem, ","));
+    }
+
 
 
     /* TODO

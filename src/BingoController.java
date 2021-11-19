@@ -1,4 +1,6 @@
+import javax.tools.Tool;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -34,6 +36,7 @@ public class BingoController {
      */
 
    //implement code here
+    private final List<BingoCard> cards = new ArrayList<>();
 
     /* TODO
           implement getters and setters for currentRowSize / currentColumnSize
@@ -42,7 +45,7 @@ public class BingoController {
         /* TODO
               change the return from 0 to the appropriate return
      */
-        return 0;
+        return Defaults.DEFAULT_NUMBER_OF_ROWS;
     }
 
     public void setCurrentRowSize(int currentRowSize) {
@@ -55,7 +58,7 @@ public class BingoController {
         /* TODO
               change the return from 0 to the appropriate return
      */
-        return 0;
+        return Defaults.DEFAULT_NUMBER_OF_COLUMNS;
     }
 
     public void setCurrentColumnSize(int currentColumnSize) {
@@ -69,6 +72,7 @@ public class BingoController {
      */
     public void addNewCard(BingoCard card) {
         //implement code here
+        cards.add(card);
     }
 
     /* TODO
@@ -84,16 +88,8 @@ public class BingoController {
                 getCurrentColumnSize());
     }
 
-    /* TODO
-           ensure that the correct amount of numbers are entered
-           print a message that shows the numbers entered using Toolkit.printArray(numbers)
-           create, setCardNumbers and add the card as a BingoCard
-     */
     public void createCard() {
-        /* TODO
-              calculate how many numbers are required to be entered based on the number or rows / columns
-         */
-        int numbersRequired = 0;
+        int numbersRequired = getCurrentColumnSize() * getCurrentRowSize();
 
         String[] numbers;
 
@@ -108,34 +104,21 @@ public class BingoController {
                                     Defaults.getNumberSeparator()))
                     .trim()
                     .split(Defaults.getNumberSeparator());
-        /* TODO
-              verify if the correctAmountOfNumbersEntered is true or false dependant on the numbersRequired calculation
-         */
-            correctAmountOfNumbersEntered = false; //changes according to calculation inserted here
 
-        /* TODO
-              verify whether the numbers entered is not correct by printing an appropriate message
-              verify against the expected output files
-         */
-            //insert code here
+            correctAmountOfNumbersEntered = numbers.length == numbersRequired;
+
+            if (!correctAmountOfNumbersEntered) {
+                System.out.println(String.format("Try again: you entered %d numbers instead of %d", numbers.length, numbersRequired));
+            }
         } while (!correctAmountOfNumbersEntered);
 
-        /* TODO
-              print an appropriate message using ToolKit.printArray() to show the numbers entered
-         */
-        System.out.println(); //insert code here
-        /* TODO
-              create new BingoCard
-         */
-       //insert code here
-        /* TODO
-              setCardNumbers for the new card
-         */
-        //insert code here
-        /* TODO
-              add the card to the ArrayList
-         */
-        //insert code here
+        System.out.println("You entered");
+        System.out.println(Toolkit.printArray(numbers));
+
+        BingoCard card = new BingoCard(getCurrentRowSize(), getCurrentColumnSize());
+
+        card.setCardNumbers(numbers);
+        addNewCard(card);
     }
 
     /* TODO
@@ -240,6 +223,9 @@ public class BingoController {
         do {
             switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
                 case OPTION_EXIT:
+                    finished = true;
+                case OPTION_CREATE_CARD:
+                    createCard();
                     finished = true;
             }
         } while (!finished);

@@ -10,4 +10,3 @@ public class BingoRunner {
       System.out.println(Toolkit.GOODBYEMESSAGE);
   }
 }
-// C:\Users\Safwa\Desktop\Java Assignments\Assignment 2\Assignment212\src\BingoCard.java
