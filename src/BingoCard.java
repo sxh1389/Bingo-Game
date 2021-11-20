@@ -29,7 +29,7 @@ public class BingoCard {
           Reset the data structure to be entirely false. Java defaults booleans
           to false so you can make use of that.
      */
-
+    markedOff = new boolean[getNumberOfRows()][getNumberOfColumns()];
   }
      /* TODO
            implement the getters and setters for rows / columns as seen below
@@ -52,8 +52,10 @@ public class BingoCard {
 
   public String getCardNumbers() {
     /* TODO
-        flatten the numbers array into a single string with each number separated by spaces but no leading or trailing copies of
-        that character: that is no spaces before the first number nor after the last number.
+        flatten the numbers array into a single string with each number separated by the currently required separator
+        but no leading or trailing copies of that separator.
+        For example, if the separator were currently a single space,
+        then no extra spaces before the first number nor after the last number.
      */
 
     StringBuilder sb = new StringBuilder();
@@ -100,15 +102,33 @@ public class BingoCard {
           make use of the [][] markedOff to mark off numbers from [][] numbers as they match
           if not matching an appropriate message must be printed, verify against expected output files
      */
+    boolean isMarked = false;
+    for (int i = 0; i < getNumberOfRows(); i++) {
+      for (int j = 0; j < getNumberOfColumns(); j++) {
+        if (numbers[i][j] == number) {
+          isMarked = true;
+          markedOff[i][j] = true;
+        }
+      }
+    }
+
+    if (isMarked) {
+      System.out.println(String.format("Marked off %d", number));
+    } else {
+      System.out.println(String.format("Number %d not on this card", number));
+    }
 
   }
 
   public boolean isWinner() {
-    /* TODO
-          check if there is a winner or not
-          all elements of [][] markedOff should be marked off to have a winner (full house)
-     */
-    //change return statement accordingly (either true or false)
-    return false;
+    boolean allComplete = true;
+    for (int i = 0; i < getNumberOfRows(); i++) {
+      for (int j = 0; j < getNumberOfColumns(); j++) {
+        if (!markedOff[i][j]) {
+          allComplete = false; // can make this nicer by returning early
+        }
+      }
+    }
+    return allComplete;
   }
 }

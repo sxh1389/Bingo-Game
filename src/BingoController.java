@@ -149,8 +149,8 @@ public class BingoController {
           5  6
           it is a follow on method from listCards() and ensures that the grid structure is printed
      */
-    public void printCardAsGrid(String numbersA) {
-        String[] arr = numbersA.split(" ");
+    public void printCardAsGrid(String numbers) {
+        String[] arr = numbers.split(" ");
         StringBuilder sb = new StringBuilder();
         int count = 1;
 
@@ -185,14 +185,20 @@ public class BingoController {
          reset all BingoCards using resetMarked (to false)
      */
     public void resetAllCards() {
-        //insert code here
+        for (BingoCard card : cards) {
+            card.resetMarked();
+        }
     }
 
     /* TODO
           mark off a number that was called when it equals one of the numbers on the BingoCard
      */
     public void markNumbers(int number) {
-        //insert code here
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.println(String.format("Checking card %d for %d", i, number));
+            cards.get(i).markNumber(number);
+        }
+
     }
 
    /* TODO
@@ -200,8 +206,12 @@ public class BingoController {
          the method should return the index of who the winner is
     */
     public int getWinnerId() {
-        //insert code here
-        return 0;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).isWinner()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /* TODO
@@ -245,6 +255,9 @@ public class BingoController {
             switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
                 case OPTION_EXIT:
                     finished = true;
+                    break;
+                case OPTION_PLAY:
+                    play();
                     break;
                 case OPTION_SEPARATOR:
                     setSeparator();
