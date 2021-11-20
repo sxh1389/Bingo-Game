@@ -32,23 +32,10 @@ public class BingoController {
     private int currentRowSize;
     private int currentColumnSize;
 
-    /* TODO
-          create an ArrayList of BingoCard cards
-     */
-
-   //implement code here
     private final List<BingoCard> cards = new ArrayList<>();
 
-    public BingoController() {
-        this.currentColumnSize = Defaults.DEFAULT_NUMBER_OF_COLUMNS;
-        this.currentRowSize = Defaults.DEFAULT_NUMBER_OF_ROWS;
-    }
-
-    /* TODO
-          implement getters and setters for currentRowSize / currentColumnSize
-     */
     public int getCurrentRowSize() {
-        return this.currentRowSize;
+        return currentRowSize == 0 ? Defaults.DEFAULT_NUMBER_OF_ROWS : currentRowSize;
     }
 
     public void setCurrentRowSize(int currentRowSize) {
@@ -56,7 +43,7 @@ public class BingoController {
     }
 
     public int getCurrentColumnSize() {
-        return this.currentColumnSize;
+        return currentColumnSize == 0 ? Defaults.DEFAULT_NUMBER_OF_COLUMNS : currentColumnSize;
     }
 
     public void setCurrentColumnSize(int currentColumnSize) {
@@ -270,6 +257,9 @@ public class BingoController {
                     break;
                 case OPTION_SIZE:
                     setSize();
+                    break;
+                default:
+                    System.out.println("INVALID INPUT");
                     break;
             }
         } while (!finished);

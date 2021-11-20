@@ -9,7 +9,7 @@ public class BingoCard {
     While this is not computationally efficient, it is good programming
     practice to hide data structures (information hiding).
    */
-  private int[][]     numbers;
+  private int[][] numbers;
   private boolean[][] markedOff;
 
   private int numberOfRows;
@@ -121,14 +121,13 @@ public class BingoCard {
   }
 
   public boolean isWinner() {
-    boolean allComplete = true;
     for (int i = 0; i < getNumberOfRows(); i++) {
       for (int j = 0; j < getNumberOfColumns(); j++) {
         if (!markedOff[i][j]) {
-          allComplete = false; // can make this nicer by returning early
+          return false;
         }
       }
     }
-    return allComplete;
+    return true ;
   }
 }
