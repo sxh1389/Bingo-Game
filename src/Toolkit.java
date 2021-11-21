@@ -11,7 +11,7 @@ public class Toolkit {
 
   public static String getInputForMessage(String message) {
     System.out.println(message);
-    return stdIn.nextLine();
+    return stdIn.nextLine().trim();
   }
 
   public static String printArray(String[] array) {
