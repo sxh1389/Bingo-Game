@@ -1,4 +1,3 @@
 .idea
-testInputs/
-expectedOutputs/
 out/
+*.iml
