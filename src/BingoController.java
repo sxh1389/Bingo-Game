@@ -1,8 +1,5 @@
-import javax.tools.Tool;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import static java.lang.Integer.parseInt;
 
 public class BingoController {
@@ -136,7 +133,6 @@ public class BingoController {
             System.out.println(String.format("Checking card %d for %d", i, number));
             cards.get(i).markNumber(number);
         }
-
     }
 
     public int getWinnerId() {
@@ -168,7 +164,7 @@ public class BingoController {
     public String getMenu(String[] menuItems) {
         StringBuilder menuText = new StringBuilder();
         for (int i = 0; i < menuItems.length; i++) {
-            menuText.append(String.format("%d: %s \n", i, menuItems[i]));
+            menuText.append(String.format(" %d: %s\n", i, menuItems[i]));
         }
         return menuText.toString();
     }
