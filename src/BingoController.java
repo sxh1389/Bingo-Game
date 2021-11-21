@@ -114,20 +114,10 @@ public class BingoController {
     */
     public void listCards() {
         for (int i = 0; i < cards.size(); i++) {
-            System.out.println(String.format("Card %d numbers:", i));
+            System.out.println(String.format("Card  %d numbers:", i));
             printCardAsGrid(cards.get(i).getCardNumbers());
         }
-        /* TODO
-              insert code here to find all cards to be printed accordingly
-         */
-
-        /* TODO
-              call printCardAsGrid() method here, Hint: use getCardNumbers() when getting cards
-         */
-
-
-
-        }
+    }
 
     /* TODO
           this is for option 4, list existing cards where all the cards are printed as a grid
@@ -145,8 +135,13 @@ public class BingoController {
             if (arr[i].length() < 2) {
                 sb.append(" ");
             }
-            sb.append(String.format("%s ", arr[i]));
-            if (count % getCurrentColumnSize() == 0) {
+            sb.append(String.format("%s", arr[i]));
+
+            // if not end of line add space at end
+            // if end of line but not final value add new line
+            if (count % getCurrentColumnSize() != 0) {
+                sb.append(" ");
+            } else if (count != arr.length) {
                 sb.append("\n");
             }
             count++;

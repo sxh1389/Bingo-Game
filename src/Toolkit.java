@@ -22,11 +22,6 @@ public class Toolkit {
         sb.append(", ");
       }
     }
-    /* TODO
-        create a loop to print the numbers out once a user has inputted the BingoCard numbers, separated by commas (trim leading / trailing spaces)
-        check the expected output here to ensure that it appears as it should
-        return as a sb.toString()
-   */
     return sb.toString();
   }
 }

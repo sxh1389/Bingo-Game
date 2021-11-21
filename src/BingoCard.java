@@ -77,14 +77,6 @@ public class BingoCard {
   }
 
   public void setCardNumbers(String[] numbersAsStrings) {
-    // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
-    //              ^
-    // [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-
-    /* TODO
-          the array of strings [] numbersAsStrings is cast to an integer as [] numbersList, for you
-          set the grid from this list
-     */
     int[] numbersList =
         Arrays.stream(numbersAsStrings).mapToInt(Integer::parseInt).toArray();
 
