@@ -17,13 +17,18 @@ public class BingoController {
     private final String OPTION_CREATE_CARD = "3";
     private final String OPTION_LIST_CARDS = "4";
     private final String OPTION_SIZE = "5";
-    private final List<BingoCard> cards = new ArrayList<>();
+    private ArrayList<BingoCard> cards = new ArrayList<>(); // create an array list of bingo cards stored in variable called cards
 
     private int currentRowSize;
     private int currentColumnSize;
 
+    //
     public int getCurrentRowSize() {
-        return currentRowSize == 0 ? Defaults.DEFAULT_NUMBER_OF_ROWS : currentRowSize;
+        if(currentRowSize == 0) { //if row size is 0
+            return Defaults.DEFAULT_NUMBER_OF_ROWS; //use the default set rows
+        }
+        else
+            return currentRowSize; //otherwise, use user inputted row value
     }
 
     public void setCurrentRowSize(int currentRowSize) {
@@ -31,20 +36,24 @@ public class BingoController {
     }
 
     public int getCurrentColumnSize() {
-        return currentColumnSize == 0 ? Defaults.DEFAULT_NUMBER_OF_COLUMNS : currentColumnSize;
+        if(currentColumnSize == 0) {
+            return Defaults.DEFAULT_NUMBER_OF_COLUMNS;
+        }
+        else
+            return currentColumnSize;
     }
 
     public void setCurrentColumnSize(int currentColumnSize) {
         this.currentColumnSize = currentColumnSize;
     }
 
-    public void addNewCard(BingoCard card) {
+    public void addNewCard(BingoCard card) { //adding new card to the array list of cards
         cards.add(card);
     }
 
     public void setSize() {
-        setCurrentRowSize(parseInt(Toolkit.getInputForMessage(
-                "Enter the number of rows for the card")));
+        setCurrentRowSize(parseInt(Toolkit.getInputForMessage( //use the getInputForMessage method in the Toolkits class to allow user to input size
+                "Enter the number of rows for the card"))); //parseInt - changes data type from int to string
         setCurrentColumnSize(parseInt(Toolkit.getInputForMessage(
                 "Enter the number of columns for the card")));
         System.out.printf("The bingo card size is set to %d rows X %d columns%n",
@@ -53,13 +62,13 @@ public class BingoController {
     }
 
     public void createCard() {
-        int numbersRequired = getCurrentColumnSize() * getCurrentRowSize();
+        int numbersRequired = getCurrentColumnSize() * getCurrentRowSize(); //numbers required by user is row x column
 
         String[] numbers;
 
         boolean correctAmountOfNumbersEntered;
 
-        do {
+        do { //do once
             numbers = Toolkit.getInputForMessage(
                             String.format(
                                     "Enter %d numbers for your card (separated by " +
@@ -74,9 +83,9 @@ public class BingoController {
             if (!correctAmountOfNumbersEntered) {
                 System.out.println(String.format("Try again: you entered %d numbers instead of %d", numbers.length, numbersRequired));
             }
-        } while (!correctAmountOfNumbersEntered);
+        } while (!correctAmountOfNumbersEntered); //exit loop if this condition has not been met
 
-        System.out.println("You entered");
+        System.out.printf("You entered%n");
         System.out.println(Toolkit.printArray(numbers));
 
         BingoCard card = new BingoCard(getCurrentRowSize(), getCurrentColumnSize());
@@ -86,31 +95,31 @@ public class BingoController {
     }
 
     public void listCards() {
-        for (int i = 0; i < cards.size(); i++) {
-            System.out.println(String.format("Card  %d numbers:", i));
+        for (int i = 0; i < cards.size(); i++) { //for the array list size (all the elements)
+            System.out.printf("Card  %d numbers:", i); //print the card number using its index and the numbers in the grid
             printCardAsGrid(cards.get(i).getCardNumbers());
         }
     }
 
     public void printCardAsGrid(String numbers) {
-        String[] arr = numbers.split(" ");
+        String[] arr = numbers.split(" "); //split at white space
         StringBuilder sb = new StringBuilder();
         int count = 1;
 
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i].length() < 2) {
-                sb.append(" ");
+            if (arr[i].length() < 2) { //if the value of the number is less than two digits
+                sb.append(" "); //add a space
             }
             sb.append(String.format("%s", arr[i]));
 
-            // if not end of line add space at end
-            // if end of line but not final value add new line
+            // if not end of row, add space at end
+            // if end of row, but not final of card, add new line
             if (count % getCurrentColumnSize() != 0) {
                 sb.append(Defaults.getNumberSeparator());
             } else if (count != arr.length) {
                 sb.append("\n");
             }
-            count++;
+            count++; //increment counter
         }
 
         System.out.println(sb);
@@ -119,12 +128,12 @@ public class BingoController {
     public void setSeparator() {
         String sep = Toolkit.getInputForMessage("Enter the new separator");
         Defaults.setNumberSeparator(sep);
-        System.out.println(String.format("Separator is '%s'", Defaults.getNumberSeparator()));
+        System.out.printf("Separator is '%s'", Defaults.getNumberSeparator());
     }
 
     public void resetAllCards() {
-        for (BingoCard card : cards) {
-            card.resetMarked();
+        for (BingoCard card : cards) { //enhanced for loop - for each (BingoCard class) card in array list cards
+            card.resetMarked(); //invoke reset method to reset all cards
         }
     }
 
@@ -166,9 +175,10 @@ public class BingoController {
         for (int i = 0; i < menuItems.length; i++) {
             menuText.append(String.format(" %d: %s\n", i, menuItems[i]));
         }
-        return menuText.toString();
+        return menuText.toString(); //returns object as String
     }
 
+    //using switch statement to run through each of the options of the menu and invoking the correct methods
     public void run() {
         boolean finished = false;
         do {
@@ -192,7 +202,7 @@ public class BingoController {
                     setSize();
                     break;
                 default:
-                    System.out.println("Invalid selection from menu. Please try again");
+                    System.out.println("Invalid input. Please try again.");
                     break;
             }
         } while (!finished);

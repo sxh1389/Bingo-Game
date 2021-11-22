@@ -7,7 +7,8 @@ public class Toolkit {
 
     public static String getInputForMessage(String message) {
         System.out.println(message);
-        return stdIn.nextLine().trim();
+        return stdIn.nextLine()
+                .trim(); //built-in method to trim leading and trailing white spaces of a String
     }
 
     public static String printArray(String[] array) {
@@ -18,6 +19,6 @@ public class Toolkit {
                 sb.append(", ");
             }
         }
-        return sb.toString();
+        return sb.toString(); //return object as String
     }
 }
